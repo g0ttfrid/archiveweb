@@ -10,4 +10,5 @@ Usage example:
 ## Inspired by
 
 [dorks-eye.py](https://github.com/BullsEye0/dorks-eye)
+
 [waybackurls](https://github.com/tomnomnom/waybackurls)
