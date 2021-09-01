@@ -10,6 +10,8 @@ Requirements:
 Usage example:
 
 ```
+▶ git clone http://github.com/g0ttfr1d/archiveweb
+▶ cd archiveweb
 ▶ archiveweb.py -t xxx.example.com > exemple.txt
 ```
 
