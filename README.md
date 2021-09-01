@@ -14,7 +14,7 @@ Usage:
 
 ▶ cd archiveweb
 
-▶ python3 archiveweb.py -t xxx.example.com > exemple.txt
+▶ python3 archiveweb.py -t xxx.example.com > output_exemple.txt
 ```
 
 
