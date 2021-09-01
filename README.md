@@ -4,7 +4,7 @@ Fetch all the URLs that the Google and Wayback Machine knows about for the targe
 Requirements:
 
 ```
-▶ python3 -m pip install googlesearch-python
+▶ python3 -m pip install google
 ```
 
 Usage example:
