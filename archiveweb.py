@@ -21,7 +21,7 @@ def dorks(target):
 def wayback(target):
     data = []
     r = requests.get(f"http://web.archive.org/cdx/search/cdx?url={target}/*&output=json&collapse=urlkey")
-    for (key,value) in enumerate(r.json()):
+    for value in r.json():
         if any(x in value[2].split('/')[-1] for x in exts) == False:
             data.append(value[2])
     data = sorted(set(data))
