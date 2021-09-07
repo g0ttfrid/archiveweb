@@ -22,7 +22,7 @@ def wayback(target):
     data = []
     r = requests.get(f"http://web.archive.org/cdx/search/cdx?url={target}/*&output=json&collapse=urlkey")
     for value in r.json():
-        if any(x in value[2].split('/')[-1] for x in exts) == False:
+        if any(x in value[2].split('/')[-1] for x in exts) == False and 'http' in value[2]:
             data.append(value[2])
     data = sorted(set(data))
     return data
@@ -31,7 +31,6 @@ def main():
     args = parse_args()
     data = dorks(args.target) + wayback(args.target)
     data = sorted(set(data))
-    for d in data:
-        if 'http' in d: print(d) 
-            
+    print(*data, sep="\n")
+
 main()
