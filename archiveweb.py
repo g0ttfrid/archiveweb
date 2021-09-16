@@ -27,10 +27,8 @@ def wayback(target):
     data = sorted(set(data))
     return data
 
-def main():
+if __name__ == '__main__':
     args = parse_args()
     data = dorks(args.target) + wayback(args.target)
     data = sorted(set(data))
     print(*data, sep="\n")
-
-main()
