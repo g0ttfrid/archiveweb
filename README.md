@@ -1,5 +1,5 @@
 # archiveweb
-Fetch all the URLs that Google and Wayback Machine knows of the target except for image, css and other static files
+Fetch all the URLs that Google and Wayback Machine knows of the target except for image, css and other static files.
 
 Requirements:
 
