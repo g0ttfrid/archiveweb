@@ -27,8 +27,10 @@ def wayback(target):
     data = sorted(set(data))
     return data
 
-if __name__ == '__main__':
+try:
     args = parse_args()
     data = dorks(args.target) + wayback(args.target)
     data = sorted(set(data))
     print(*data, sep="\n")
+except KeyboardInterrupt:
+    print('Stopping')
