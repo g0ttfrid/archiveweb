@@ -10,7 +10,7 @@ Requirements:
 Usage:
 
 ```
-▶ git clone https://github.com/g0ttfr1d/archiveweb
+▶ git clone https://github.com/g0ttfrid/archiveweb
 
 ▶ cd archiveweb
 
