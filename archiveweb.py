@@ -29,8 +29,7 @@ def wayback(target):
 
 try:
     args = parse_args()
-    data = dorks(args.target) + wayback(args.target)
-    data = sorted(set(data))
+    data = sorted(set([*dorks(args.target), *wayback(args.target)]))
     print(*data, sep="\n")
 except KeyboardInterrupt:
-    print('Stopping')
+    print('[!] Stopping')
