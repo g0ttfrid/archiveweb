@@ -10,11 +10,9 @@ Requirements:
 Usage:
 
 ```
-▶ git clone https://github.com/g0ttfrid/archiveweb
+▶ git clone https://github.com/g0ttfrid/archiveweb && cd archiveweb
 
-▶ cd archiveweb
-
-▶ python3 archiveweb.py -t xxx.example.com > output_exemple.txt
+▶ python3 archiveweb.py -t example.com > output_example.txt
 ```
 
 
