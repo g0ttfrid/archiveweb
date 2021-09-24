@@ -16,6 +16,7 @@ def parse_args():
 def dorks(target):
     print('[+] Google dorks')
     data = []
+    
     try:
         for value in tqdm(search(f'site:{target}', start=0, stop=None, pause=2)):
             if not any(x in value.split('/')[-1] for x in exts):
@@ -41,10 +42,10 @@ def wayback(target):
     return sorted(set(data))
 
 def clear(list):
+    print('\n[+] Clear list')
     data = []
     temp = []
     urls = sorted(set(list))
-    print('\n[+] Clear list')
     for url in tqdm(urls):
         u = urlparse(url)
         if not u.query:
