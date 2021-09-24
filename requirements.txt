@@ -1,5 +1,5 @@
+urllib3
 requests
 argparse
-urllib.parse
 googlesearch
 tqdm
