@@ -10,7 +10,7 @@ Usage:
 
 ▶ pip3 install -r requirements.txt
 
-▶ python3 archiveweb.py -t example.com > output_example.txt
+▶ python3 archiveweb.py -t example.com -o output-example.txt
 ```
 
 
