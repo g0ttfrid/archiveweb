@@ -3,6 +3,7 @@ Fetch all the URLs that Google and Wayback Machine knows of the target except:
 - for image, css and other static files
 - urls with same path but parameter value difference
 
+
 ```
 
  █████╗ ██████╗  ██████╗██╗  ██╗██╗██╗   ██╗███████╗    ██╗    ██╗███████╗██████╗
