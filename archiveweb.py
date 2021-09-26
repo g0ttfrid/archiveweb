@@ -17,9 +17,9 @@ banner = ("""
 
 def parse_args():
     parser = argparse.ArgumentParser(usage='archiveweb.py -t example.com')
-    parser.add_argument('-t', '--target', type=str, help='domain/subdomain')
-    parser.add_argument('-f', '--file', type=open, help='list with domains/subdomains')
-    parser.add_argument('-x', '--ext', type=str, help='get result with specific extension')
+    parser.add_argument('-t', '--target', type=str, help='insert domain/subdomain')
+    parser.add_argument('-f', '--file', type=open, help='insert list w/ domains/subdomains')
+    parser.add_argument('-x', '--ext', type=str, help='get result w/ specific extensions (-x asp,aspx)')
     return parser.parse_args()
 
 def dorks(target):
