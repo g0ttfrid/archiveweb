@@ -15,8 +15,6 @@ banner = ("""
                                                                             v1.1
 """)
 
-exts = ('.css', '.png', '.pdf', '.jpg', '.jpeg', '.ico', '.bmp', '.svg', '.gif', '.woff', '.woff2', '.ttf')
-
 def parse_args():
     parser = argparse.ArgumentParser(usage='archiveweb.py [arg] target|url_list')
     parser.add_argument('-t', '--target', type=str, help='Insert domain or subdomain')
