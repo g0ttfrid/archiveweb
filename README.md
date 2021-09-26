@@ -14,16 +14,17 @@ Fetch all the URLs that Google and Wayback Machine knows of the target except:
 ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝     ╚══╝╚══╝ ╚══════╝╚═════╝
                                                                             v1.1
 
-usage: archiveweb.py [arg] target|url_list
+usage: archiveweb.py -t example.com
 
 optional arguments:
   -h, --help            show this help message and exit
   -t TARGET, --target TARGET
-                        Insert domain or subdomain
-  -f FILE, --file FILE  Insert domain or subdomain list
-  -x ONLY_EXT, --only_ext ONLY_EXT
-                        get result with specific extension
+                        insert domain/subdomain
+  -f FILE, --file FILE  insert list w/ domains/subdomains
+  -x EXT, --ext EXT     get result w/ specific extensions (-x asp,aspx)
+
 ```
+
 
 Usage:
 
