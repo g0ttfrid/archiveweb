@@ -16,10 +16,10 @@ banner = ("""
 """)
 
 def parse_args():
-    parser = argparse.ArgumentParser(usage='archiveweb.py [arg] target|url_list')
-    parser.add_argument('-t', '--target', type=str, help='Insert domain or subdomain')
-    parser.add_argument('-f', '--file', type=open, help='Insert domain or subdomain list')
-    parser.add_argument('-x', '--only_ext', type=str, help='get result with specific extension')
+    parser = argparse.ArgumentParser(usage='archiveweb.py -t example.com')
+    parser.add_argument('-t', '--target', type=str, help='domain/subdomain')
+    parser.add_argument('-f', '--file', type=open, help='list with domains/subdomains')
+    parser.add_argument('-x', '--ext', type=str, help='get result with specific extension')
     return parser.parse_args()
 
 def dorks(target):
@@ -58,7 +58,7 @@ def only_ext(list, ext):
     data = []
     
     for url in list:
-        if ext in url.split('/')[-1]:
+        if any(f'.{x}' in url.split('/')[-1] for x in ext):
             data.append(url.rstrip())
     
     if not data:
@@ -120,20 +120,20 @@ def main():
         args = parse_args()
 
         if args.target:
-            if args.only_ext:
+            if args.ext:
                 data = clear([*dorks(args.target), *wayback(args.target)])
-                data = only_ext(data, args.only_ext)
+                data = only_ext(data, args.ext.split(','))
                 logger(args.target, data)
             
             else:
                 data = clear(remove_ext([*dorks(args.target), *wayback(args.target)]))
                 logger(args.target, data)
         
-        if args.file:
+        elif args.file:
             for target in args.file:
-                if args.only_ext:
-                    data = clear([*dorks(target), *wayback(target)])
-                    data = only_ext(data, args.only_ext)
+                if args.ext:
+                    data = clear([*dorks(target.rstrip()), *wayback(target.rstrip())])
+                    data = only_ext(data, args.ext.split(','))
                     logger(target, data)
 
                 else:
