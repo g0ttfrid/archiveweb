@@ -5,56 +5,100 @@ from urllib.parse import urlparse
 from googlesearch import search
 from tqdm import tqdm
 
+banner = ("""
+ █████╗ ██████╗  ██████╗██╗  ██╗██╗██╗   ██╗███████╗    ██╗    ██╗███████╗██████╗ 
+██╔══██╗██╔══██╗██╔════╝██║  ██║██║██║   ██║██╔════╝    ██║    ██║██╔════╝██╔══██╗
+███████║██████╔╝██║     ███████║██║██║   ██║█████╗      ██║ █╗ ██║█████╗  ██████╔╝
+██╔══██║██╔══██╗██║     ██╔══██║██║╚██╗ ██╔╝██╔══╝      ██║███╗██║██╔══╝  ██╔══██╗
+██║  ██║██║  ██║╚██████╗██║  ██║██║ ╚████╔╝ ███████╗    ╚███╔███╔╝███████╗██████╔╝
+╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝     ╚══╝╚══╝ ╚══════╝╚═════╝ 
+                                                                            v1.1
+""")
+
 exts = ('.css', '.png', '.pdf', '.jpg', '.jpeg', '.ico', '.bmp', '.svg', '.gif', '.woff', '.woff2', '.ttf')
 
 def parse_args():
-    parser = argparse.ArgumentParser(usage='archiveweb.py -t example.com -f output-example.txt')
-    parser.add_argument('-t', '--target', type=str, required=True)
-    parser.add_argument('-o', '--output_file', type=argparse.FileType('w', encoding='utf-8'), required=True)
+    parser = argparse.ArgumentParser(usage='archiveweb.py [arg] target|url_list')
+    parser.add_argument('-t', '--target', type=str, help='Insert domain or subdomain')
+    parser.add_argument('-f', '--file', type=open, help='Insert domain or subdomain list')
+    parser.add_argument('-x', '--only_ext', type=str, help='get result with specific extension')
     return parser.parse_args()
 
 def dorks(target):
-    print('[+] Google dorks')
+    print(f'\n\n[+] Target: {target.rstrip()}')
+    print('+ Google dorks')
     data = []
+    
     try:
         for value in tqdm(search(f'site:{target}', start=0, stop=None, pause=2)):
-            if not any(x in value.split('/')[-1] for x in exts):
-                data.append(value)
+            data.append(value)
+    
     except Exception:
         if 'HTTP Error 429' in value:
             print('[!] HTTP Error 429: Too Many Requests')
             print('[!] try later...')
         else:
             print('[!] Error in google search')
+    
     return sorted(set(data))
 
 def wayback(target):
-    print('\n[+] Wayback machine')
+    print('\n+ Wayback machine')
     data = []
+    
     try:
         r = requests.get(f'http://web.archive.org/cdx/search/cdx?url={target}/*&output=json&collapse=urlkey')
         for value in tqdm(r.json()):
-            if not any(x in value[2].split('/')[-1] for x in exts) and 'http' in value[2]:
-                data.append(value[2])
+            data.append(value[2])
+    
     except Exception:
         print('[!] Error in wayback machine')
+    
     return sorted(set(data))
 
+def only_ext(list, ext):
+    data = []
+    
+    for url in list:
+        if ext in url.split('/')[-1]:
+            data.append(url.rstrip())
+    
+    if not data:
+        print(f'[!] {ext} not found')
+    
+    return data
+
+def remove_ext(list):
+    data = []
+    ext = ('.css', '.png', '.pdf', '.jpg', '.jpeg', '.ico', '.bmp', '.svg', '.gif', '.woff', '.woff2', '.ttf')
+    
+    for url in list:
+        if not any(x in url.split('/')[-1] for x in ext) and 'http' in url:
+            data.append(url.rstrip())
+    
+    return data
+
 def clear(list):
-    print('\n[+] Clear list')
+    print('\n+ Organizing list')
+    
     data = []
     temp = []
+    
     urls = sorted(set(list))
+    
     for url in tqdm(urls):
         u = urlparse(url)
+
         if not u.query:
             data.append(url.rstrip())
+        
         if u.query and '&' not in u.query:
             param = u.query.split('=')[0]
             x = f'{u.scheme}{u.netloc}{u.path}{param}'
             if x not in temp:
                 temp.append(x)
                 data.append(url.rstrip())
+        
         if '&' in u.query:
             param = u.query.split('&')
             concat = ''
@@ -65,16 +109,46 @@ def clear(list):
             if x not in temp:
                 temp.append(x)
                 data.append(url.rstrip())
+    
     return data
+
+def logger(target, list):
+    with open(f'{target.split(".")[0]}.txt', 'w') as f:
+        for line in list:
+            f.write(f'{line}\n')
 
 def main():
     try:
         args = parse_args()
-        data = clear([*dorks(args.target), *wayback(args.target)])
-        output = args.output_file
-        output.write('\n'.join(data))
+
+        if args.target:
+            if args.only_ext:
+                data = clear([*dorks(args.target), *wayback(args.target)])
+                data = only_ext(data, args.only_ext)
+                logger(args.target, data)
+            
+            else:
+                data = clear(remove_ext([*dorks(args.target), *wayback(args.target)]))
+                logger(args.target, data)
+        
+        if args.file:
+            for target in args.file:
+                if args.only_ext:
+                    data = clear([*dorks(target), *wayback(target)])
+                    data = only_ext(data, args.only_ext)
+                    logger(target, data)
+
+                else:
+                    data = clear(remove_ext([*dorks(target), *wayback(target)]))
+                    logger(target, data)
+
+        else:
+            print('[!] No arguments')
+            print('[!] Try archivewe.py -h')
+    
     except KeyboardInterrupt:
-        print('[!] Stopping')
+        print('\n\n[!] Stopping')
 
 if __name__ == '__main__':
+    print(banner)
     main()
