@@ -142,7 +142,7 @@ def main():
 
         else:
             print('[!] No arguments')
-            print('[!] Try archivewe.py -h')
+            print('[!] Try archiveweb.py -h')
     
     except KeyboardInterrupt:
         print('\n\n[!] Stopping')
