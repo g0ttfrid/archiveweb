@@ -111,7 +111,7 @@ def clear(list):
     return data
 
 def logger(target, list):
-    with open(f'{target.split(".")[0]}.txt', 'w') as f:
+    with open(f'{target}.txt', 'w') as f:
         for line in list:
             f.write(f'{line}\n')
 
