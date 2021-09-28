@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-import requests
 import argparse
+from requests import get
 from urllib.parse import urlparse
 from googlesearch import search
 from tqdm import tqdm
@@ -45,7 +45,7 @@ def wayback(target):
     data = []
     
     try:
-        r = requests.get(f'http://web.archive.org/cdx/search/cdx?url={target}/*&output=json&collapse=urlkey')
+        r = get(f'http://web.archive.org/cdx/search/cdx?url={target}/*&output=json&collapse=urlkey')
         for value in tqdm(r.json()):
             data.append(value[2])
     
@@ -71,7 +71,8 @@ def remove_ext(list):
     ext = ('.css', '.png', '.pdf', '.jpg', '.jpeg', '.ico', '.bmp', '.svg', '.gif', '.woff', '.woff2', '.ttf')
     
     for url in list:
-        if not any(x in url.split('/')[-1] for x in ext) and 'http' in url:
+        u = urlparse(url)
+        if not any(x in u.path.split('/')[-1] for x in ext) and 'http' in url:
             data.append(url.rstrip())
     
     return data
@@ -111,7 +112,7 @@ def clear(list):
     return data
 
 def logger(target, list):
-    with open(f'{target}.txt', 'w') as f:
+    with open(f'{target}.txt', 'w', encoding='utf-8') as f:
         for line in list:
             f.write(f'{line}\n')
 
@@ -124,7 +125,6 @@ def main():
                 data = clear([*dorks(args.target), *wayback(args.target)])
                 data = only_ext(data, args.ext.split(','))
                 logger(args.target, data)
-            
             else:
                 data = clear(remove_ext([*dorks(args.target), *wayback(args.target)]))
                 logger(args.target, data)
@@ -135,7 +135,6 @@ def main():
                     data = clear([*dorks(target.rstrip()), *wayback(target.rstrip())])
                     data = only_ext(data, args.ext.split(','))
                     logger(target, data)
-
                 else:
                     data = clear(remove_ext([*dorks(target), *wayback(target)]))
                     logger(target, data)
