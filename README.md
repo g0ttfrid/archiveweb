@@ -4,16 +4,17 @@ Fetch all the URLs that Google and Wayback Machine knows of the target except:
 - urls with same path but parameter value difference
 
 
+Install:
+
+```
+▶ git clone https://github.com/g0ttfrid/archiveweb && cd archiveweb
+
+▶ pip3 install -r requirements.txt
+
 ```
 
- █████╗ ██████╗  ██████╗██╗  ██╗██╗██╗   ██╗███████╗    ██╗    ██╗███████╗██████╗
-██╔══██╗██╔══██╗██╔════╝██║  ██║██║██║   ██║██╔════╝    ██║    ██║██╔════╝██╔══██╗
-███████║██████╔╝██║     ███████║██║██║   ██║█████╗      ██║ █╗ ██║█████╗  ██████╔╝
-██╔══██║██╔══██╗██║     ██╔══██║██║╚██╗ ██╔╝██╔══╝      ██║███╗██║██╔══╝  ██╔══██╗
-██║  ██║██║  ██║╚██████╗██║  ██║██║ ╚████╔╝ ███████╗    ╚███╔███╔╝███████╗██████╔╝
-╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝     ╚══╝╚══╝ ╚══════╝╚═════╝
-                                                                            v1.1
 
+```
 usage: archiveweb.py -t example.com
 
 optional arguments:
@@ -22,18 +23,6 @@ optional arguments:
                         insert domain/subdomain
   -f FILE, --file FILE  insert list w/ domains/subdomains
   -x EXT, --ext EXT     get result w/ specific extensions (-x asp,aspx)
-
-```
-
-
-Usage:
-
-```
-▶ git clone https://github.com/g0ttfrid/archiveweb && cd archiveweb
-
-▶ pip3 install -r requirements.txt
-
-▶ python3 archiveweb.py -t example.com
 ```
 
 
