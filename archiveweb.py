@@ -20,7 +20,7 @@ def dorks(target):
     data = set()
 
     try:
-        for value in tqdm(search(f'site:{target}', start=0, stop=None, pause=2.0)):
+        for value in tqdm(search(f'site:{target}', start=0, stop=None, pause=3.0)):
             data.add(value)
     
     except Exception:
