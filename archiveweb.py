@@ -97,14 +97,14 @@ def clear(list):
                 temp.add(x)
                 data.add(url.rstrip())
     
-    return data
+    return sorted(data)
 
 def logger(target, list):
     with open(f'{target}.txt', 'w', encoding='utf-8') as f:
         for line in list:
             f.write(f'{line}\n')
 
-def main():
+if __name__ == '__main__':
     try:
         args = parse_args()
 
@@ -133,6 +133,3 @@ def main():
     
     except KeyboardInterrupt:
         print('\n\n[!] Stopping')
-
-if __name__ == '__main__':
-    main()
