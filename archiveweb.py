@@ -56,7 +56,7 @@ def only_ext(list, ext):
 
 def remove_ext(list):
     data = set()
-    ext = ('.css', '.png', '.pdf', '.jpg', '.jpeg', '.ico', '.bmp', '.svg', '.gif', '.woff', '.woff2', '.ttf')
+    ext = ('.css', '.png', '.pdf', '.jpg', '.jpeg', '.ico', '.bmp', '.svg', '.gif', '.woff', '.woff2', '.ttf', '.eot', '.otf')
     
     for url in list:
         u = urlparse(url)
