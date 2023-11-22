@@ -7,9 +7,10 @@ Fetch all the URLs that Google and Wayback Machine knows of the target except:
 Install:
 
 ```
-▶ git clone https://github.com/g0ttfrid/archiveweb && cd archiveweb
-
-▶ pip3 install -r requirements.txt
+git clone https://github.com/g0ttfrid/archiveweb && cd archiveweb
+```
+```
+pip3 install -r requirements.txt
 
 ```
 
