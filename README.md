@@ -11,9 +11,7 @@ git clone https://github.com/g0ttfrid/archiveweb && cd archiveweb
 ```
 ```
 pip3 install -r requirements.txt
-
 ```
-
 
 ```
 usage: archiveweb.py -t example.com
