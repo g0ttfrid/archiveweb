@@ -4,7 +4,7 @@ Fetch all the URLs that Google and Wayback Machine knows of the target except:
 - urls with same path but parameter value difference
 
 
-Install:
+Usage:
 
 ```
 git clone https://github.com/g0ttfrid/archiveweb && cd archiveweb
@@ -20,7 +20,6 @@ optional arguments:
   -h, --help            show this help message and exit
   -t TARGET, --target TARGET
                         insert domain/subdomain
-  -f FILE, --file FILE  insert list w/ domains/subdomains
   -x EXT, --ext EXT     get result w/ specific extensions (-x asp,aspx)
 ```
 
