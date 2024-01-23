@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 import argparse
+import time
 from requests import get
 from urllib.parse import urlparse
 from googlesearch import search
 from tqdm import tqdm
+from urllib.parse import unquote
 
 ver = "1.1"
 
@@ -14,12 +16,11 @@ def parse_args():
     return parser.parse_args()
 
 def dorks(target):
-    print(f'\n[+] Target: {target.rstrip()}')
     print('+ Google dorks')
     data = set()
 
     try:
-        for value in tqdm(search(f'site:{target}', start=0, stop=None, pause=3.0)):
+        for value in tqdm(search(f'site:{target}', start=0, stop=None, pause=5.0)):
             data.add(value)
     
     except Exception as err:
@@ -34,7 +35,7 @@ def wayback(target):
     try:
         r = get(f'http://web.archive.org/cdx/search/cdx?url={target}/*&output=json&collapse=urlkey')
         for value in tqdm(r.json()):
-            data.add(value[2])
+            data.add(unquote(value[2]))
     
     except Exception as err:
         print(f'[!] Error in wayback machine\n{err}')
@@ -99,13 +100,14 @@ def clear(list):
     return sorted(data)
 
 def logger(target, list):
-    with open(f'{target}.txt', 'w', encoding='utf-8') as f:
+    with open(f'{target}_{time.time()}.txt', 'w', encoding='utf-8') as f:
         for line in list:
             f.write(f'{line}\n')
 
 if __name__ == '__main__':
     try:
         args = parse_args()
+        print(f'\n[+] Target: {args.target.rstrip()}')
         if args.ext:
             data = clear([*dorks(args.target), *wayback(args.target)])
             data = only_ext(data, args.ext.split(','))
@@ -113,6 +115,6 @@ if __name__ == '__main__':
         else:
             data = clear(remove_ext([*dorks(args.target), *wayback(args.target)]))
             logger(args.target, data)
-    
+
     except KeyboardInterrupt:
         print('\n\n[!] Stopping')
